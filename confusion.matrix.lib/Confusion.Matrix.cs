@@ -98,6 +98,12 @@ namespace confusion.matrix.lib
                         .FilterColumns(new[] {"Key_Id", "Counter1", "Counter2"}, FilterAction.Include)
                         .OverrideColumnsNames(new Dictionary<string, string>
                             {{"Key_Id", "_"}, {"Counter1", "TP"}, {"Counter2", "TN"}})
+                        .ColumnContentTextJustification(
+                            new Dictionary<string, TextJustification>
+                            {
+                                {"Counter1", TextJustification.Centered},
+                                {"Counter2", TextJustification.Centered}
+                            })
                         .ToConsole();
                     break;
                 case 7:
@@ -113,6 +119,17 @@ namespace confusion.matrix.lib
                             {"Counter6", "0.02"},
                             {"Counter7", ">0.02"}
                         })
+                        .ColumnContentTextJustification(
+                            new Dictionary<string, TextJustification>
+                            {
+                                {"Counter1", TextJustification.Centered},
+                                {"Counter2", TextJustification.Centered},
+                                {"Counter3", TextJustification.Centered},
+                                {"Counter4", TextJustification.Centered},
+                                {"Counter5", TextJustification.Centered},
+                                {"Counter6", TextJustification.Centered},
+                                {"Counter7", TextJustification.Centered}
+                            })
                         .ToConsole();
                     break;
             }
