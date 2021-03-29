@@ -21,7 +21,6 @@
 //SOFTWARE.
 
 using System.Collections.Generic;
-using System.Reflection;
 using table.lib;
 
 namespace confusion.matrix.lib
@@ -38,7 +37,6 @@ namespace confusion.matrix.lib
             GenerateBuckets(numberBuckets);
         }
 
-        //get the data
         public List<DataHolder> Data { get; set; }
         public Dictionary<string, DataBucket> Matrix { get; set; }
         public int NumberBuckets { get; set; }
@@ -55,16 +53,10 @@ namespace confusion.matrix.lib
                     Matrix.Add("TN", new DataBucket());
 
                     foreach (var item in Data)
-                    {
                         if (item.Difference == 0)
-                        {
                             Matrix["TP"].Counter1++;
-                        }
                         else
-                        {
                             Matrix["TN"].Counter2++;
-                        }
-                    }
 
                     break;
                 }
@@ -78,36 +70,19 @@ namespace confusion.matrix.lib
                     Matrix.Add(">0.02", new DataBucket());
 
                     foreach (var item in Data)
-                    {
                         if (item.Difference < -0.02m)
-                        {
                             Matrix["<-0.02"].Counter1++;
-                        }
-                        else if (item.Difference < -0.01m && item.Difference >= -0.02m )
-                        {
+                        else if (item.Difference < -0.01m && item.Difference >= -0.02m)
                             Matrix["-0.02"].Counter2++;
-                        }
                         else if (item.Difference < 0m && item.Difference >= -0.01m)
-                        {
                             Matrix["-0.01"].Counter3++;
-                        }
                         else if (item.Difference == 0)
-                        {
                             Matrix["0"].Counter4++;
-                        }
                         else if (item.Difference > 0m && item.Difference <= 0.01m)
-                        {
                             Matrix["0.01"].Counter5++;
-                        }
                         else if (item.Difference > 0.01m && item.Difference <= 0.02m)
-                        {
                             Matrix["0.02"].Counter6++;
-                        }
-                        else if (item.Difference > 0.02m)
-                        {
-                            Matrix[">0.02"].Counter7++;
-                        }
-                    }
+                        else if (item.Difference > 0.02m) Matrix[">0.02"].Counter7++;
 
                     break;
             }
@@ -120,22 +95,23 @@ namespace confusion.matrix.lib
             {
                 case 2:
                     TableDic<string, DataBucket>.Add(Matrix)
-                        .FilterColumns(new[] { "Key_Id", "Counter1", "Counter2" }, FilterAction.Include)
-                        .OverrideColumnsNames(new Dictionary<string, string>() { { "Key_Id", "_" }, { "Counter1", "TP" }, { "Counter2", "TN" } })
+                        .FilterColumns(new[] {"Key_Id", "Counter1", "Counter2"}, FilterAction.Include)
+                        .OverrideColumnsNames(new Dictionary<string, string>
+                            {{"Key_Id", "_"}, {"Counter1", "TP"}, {"Counter2", "TN"}})
                         .ToConsole();
                     break;
                 case 7:
                     TableDic<string, DataBucket>.Add(Matrix)
-                        .OverrideColumnsNames(new Dictionary<string, string>()
+                        .OverrideColumnsNames(new Dictionary<string, string>
                         {
-                            { "Key_Id", "_" },
-                            { "Counter1", "<-0.02" }, 
-                            { "Counter2", "-0.02" },
-                            { "Counter3", "-0.01" },
-                            { "Counter4", "0" },
-                            { "Counter5", "0.01" },
-                            { "Counter6", "0.02" },
-                            { "Counter7", ">0.02" }
+                            {"Key_Id", "_"},
+                            {"Counter1", "<-0.02"},
+                            {"Counter2", "-0.02"},
+                            {"Counter3", "-0.01"},
+                            {"Counter4", "0"},
+                            {"Counter5", "0.01"},
+                            {"Counter6", "0.02"},
+                            {"Counter7", ">0.02"}
                         })
                         .ToConsole();
                     break;

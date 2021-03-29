@@ -24,14 +24,6 @@ namespace confusion.matrix.lib
 {
     public class DataBucket
     {
-        public int Counter1 { get; set; }
-        public int Counter2 { get; set; }
-        public int Counter3 { get; set; }
-        public int Counter4 { get; set; }
-        public int Counter5 { get; set; }
-        public int Counter6 { get; set; }
-        public int Counter7 { get; set; }
-
         public DataBucket()
         {
             Counter1 = 0;
@@ -42,5 +34,13 @@ namespace confusion.matrix.lib
             Counter6 = 0;
             Counter7 = 0;
         }
+
+        public int Counter1 { get; set; }
+        public int Counter2 { get; set; }
+        public int Counter3 { get; set; }
+        public int Counter4 { get; set; }
+        public int Counter5 { get; set; }
+        public int Counter6 { get; set; }
+        public int Counter7 { get; set; }
     }
 }
