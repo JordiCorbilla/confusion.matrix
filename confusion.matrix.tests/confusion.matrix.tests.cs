@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace confusion.matrix.tests
 {
-    public class Tests
+    public class ConfusionMatrixTests
     {
         [SetUp]
         public void Setup()
