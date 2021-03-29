@@ -22,11 +22,12 @@
 
 namespace confusion.matrix.lib
 {
-    public class DataHolder
+    public class DataBucket
     {
-        public decimal Expected { get; set; }
-        public decimal Value { get; set; }
-
-        public decimal Difference => Expected - Value;
+        public int Counter1 { get; set; }
+        public int Counter2 { get; set; }
+        public int Counter3 { get; set; }
+        public int Counter4 { get; set; }
+        public int Counter5 { get; set; }
     }
 }

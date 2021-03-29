@@ -21,35 +21,55 @@
 //SOFTWARE.
 
 using System.Collections.Generic;
+using table.lib;
 
 namespace confusion.matrix.lib
 {
     public class ConfusionMatrix
     {
-        //get the data
-        public List<DataHolder> Data { get; set; }
-
-        public ConfusionMatrix(List<decimal> expected, List<decimal> value, int numberBuckets)
+        public ConfusionMatrix(IReadOnlyList<decimal> expected, IReadOnlyList<decimal> value, int numberBuckets)
         {
             Data = new List<DataHolder>();
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Data.Add(new DataHolder{Expected = expected[i], Value = value[i]});
-            }
+            Matrix = new Dictionary<string, DataBucket>();
+            for (var i = 0; i < expected.Count; i++)
+                Data.Add(new DataHolder {Expected = expected[i], Value = value[i]});
 
             GenerateBuckets(numberBuckets);
         }
 
+        //get the data
+        public List<DataHolder> Data { get; set; }
+        public Dictionary<string, DataBucket> Matrix { get; set; }
+
         //create the buckets
         private void GenerateBuckets(int numberBuckets)
         {
+            if (numberBuckets == 2)
+            {
+                Matrix.Add("TP", new DataBucket{Counter1 = 0, Counter2 = 0});
+                Matrix.Add("TN", new DataBucket { Counter1 = 0, Counter2 = 0 });
 
+                foreach (var item in Data)
+                {
+                    if (item.Difference == 0)
+                    {
+                        Matrix["TP"].Counter1++;
+                    }
+                    else
+                    {
+                        Matrix["TN"].Counter2++;
+                    }
+                }
+            }
         }
 
         //generate output
         public void ToConsole()
         {
-
+            TableDic<string, DataBucket>.Add(Matrix)
+                .FilterColumns(new []{"Key_Id", "Counter1", "Counter2"}, FilterAction.Include)
+                .OverrideColumnsNames(new Dictionary<string, string>(){ { "Key_Id", "_" }, { "Counter1", "TP"}, {"Counter2", "TN"}})
+                .ToConsole();
         }
     }
 }
