@@ -33,8 +33,9 @@ namespace confusion.matrix.tests
         {
         }
 
-        [Test]
-        public void Test1()
+        [TestCase(2)]
+        [TestCase(7)]
+        public void BucketsMatrix(int buckets)
         {
             var expected = new List<decimal>
             {
@@ -92,7 +93,7 @@ namespace confusion.matrix.tests
                 0.132628696m
             };
 
-            var confusion = new ConfusionMatrix(expected, real, 2);
+            var confusion = new ConfusionMatrix(expected, real, buckets);
             confusion.ToConsole();
         }
     }

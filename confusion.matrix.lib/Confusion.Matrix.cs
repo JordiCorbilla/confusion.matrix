@@ -21,6 +21,7 @@
 //SOFTWARE.
 
 using System.Collections.Generic;
+using System.Reflection;
 using table.lib;
 
 namespace confusion.matrix.lib
@@ -40,36 +41,105 @@ namespace confusion.matrix.lib
         //get the data
         public List<DataHolder> Data { get; set; }
         public Dictionary<string, DataBucket> Matrix { get; set; }
+        public int NumberBuckets { get; set; }
 
         //create the buckets
         private void GenerateBuckets(int numberBuckets)
         {
-            if (numberBuckets == 2)
+            NumberBuckets = numberBuckets;
+            switch (numberBuckets)
             {
-                Matrix.Add("TP", new DataBucket{Counter1 = 0, Counter2 = 0});
-                Matrix.Add("TN", new DataBucket { Counter1 = 0, Counter2 = 0 });
-
-                foreach (var item in Data)
+                case 2:
                 {
-                    if (item.Difference == 0)
+                    Matrix.Add("TP", new DataBucket());
+                    Matrix.Add("TN", new DataBucket());
+
+                    foreach (var item in Data)
                     {
-                        Matrix["TP"].Counter1++;
+                        if (item.Difference == 0)
+                        {
+                            Matrix["TP"].Counter1++;
+                        }
+                        else
+                        {
+                            Matrix["TN"].Counter2++;
+                        }
                     }
-                    else
-                    {
-                        Matrix["TN"].Counter2++;
-                    }
+
+                    break;
                 }
+                case 7:
+                    Matrix.Add("<-0.02", new DataBucket());
+                    Matrix.Add("-0.02", new DataBucket());
+                    Matrix.Add("-0.01", new DataBucket());
+                    Matrix.Add("0", new DataBucket());
+                    Matrix.Add("0.01", new DataBucket());
+                    Matrix.Add("0.02", new DataBucket());
+                    Matrix.Add(">0.02", new DataBucket());
+
+                    foreach (var item in Data)
+                    {
+                        if (item.Difference < -0.02m)
+                        {
+                            Matrix["<-0.02"].Counter1++;
+                        }
+                        else if (item.Difference < -0.01m && item.Difference >= -0.02m )
+                        {
+                            Matrix["-0.02"].Counter2++;
+                        }
+                        else if (item.Difference < 0m && item.Difference >= -0.01m)
+                        {
+                            Matrix["-0.01"].Counter3++;
+                        }
+                        else if (item.Difference == 0)
+                        {
+                            Matrix["0"].Counter4++;
+                        }
+                        else if (item.Difference > 0m && item.Difference <= 0.01m)
+                        {
+                            Matrix["0.01"].Counter5++;
+                        }
+                        else if (item.Difference > 0.01m && item.Difference <= 0.02m)
+                        {
+                            Matrix["0.02"].Counter6++;
+                        }
+                        else if (item.Difference > 0.02m)
+                        {
+                            Matrix[">0.02"].Counter7++;
+                        }
+                    }
+
+                    break;
             }
         }
 
         //generate output
         public void ToConsole()
         {
-            TableDic<string, DataBucket>.Add(Matrix)
-                .FilterColumns(new []{"Key_Id", "Counter1", "Counter2"}, FilterAction.Include)
-                .OverrideColumnsNames(new Dictionary<string, string>(){ { "Key_Id", "_" }, { "Counter1", "TP"}, {"Counter2", "TN"}})
-                .ToConsole();
+            switch (NumberBuckets)
+            {
+                case 2:
+                    TableDic<string, DataBucket>.Add(Matrix)
+                        .FilterColumns(new[] { "Key_Id", "Counter1", "Counter2" }, FilterAction.Include)
+                        .OverrideColumnsNames(new Dictionary<string, string>() { { "Key_Id", "_" }, { "Counter1", "TP" }, { "Counter2", "TN" } })
+                        .ToConsole();
+                    break;
+                case 7:
+                    TableDic<string, DataBucket>.Add(Matrix)
+                        .OverrideColumnsNames(new Dictionary<string, string>()
+                        {
+                            { "Key_Id", "_" },
+                            { "Counter1", "<-0.02" }, 
+                            { "Counter2", "-0.02" },
+                            { "Counter3", "-0.01" },
+                            { "Counter4", "0" },
+                            { "Counter5", "0.01" },
+                            { "Counter6", "0.02" },
+                            { "Counter7", ">0.02" }
+                        })
+                        .ToConsole();
+                    break;
+            }
         }
     }
 }

@@ -29,5 +29,18 @@ namespace confusion.matrix.lib
         public int Counter3 { get; set; }
         public int Counter4 { get; set; }
         public int Counter5 { get; set; }
+        public int Counter6 { get; set; }
+        public int Counter7 { get; set; }
+
+        public DataBucket()
+        {
+            Counter1 = 0;
+            Counter2 = 0;
+            Counter3 = 0;
+            Counter4 = 0;
+            Counter5 = 0;
+            Counter6 = 0;
+            Counter7 = 0;
+        }
     }
 }
