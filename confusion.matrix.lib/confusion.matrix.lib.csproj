@@ -2,10 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>Simple confusion matrix builder for .net 5</Description>
+    <RepositoryUrl>https://github.com/JordiCorbilla/confusion.matrix</RepositoryUrl>
+    <PackageReleaseNotes>- First POC</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Jordi Corbilla</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="table.lib" Version="1.4.0" />
+    <PackageReference Include="table.lib" Version="1.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

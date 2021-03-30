@@ -71,18 +71,18 @@ namespace confusion.matrix.lib
 
                     foreach (var item in Data)
                         if (item.Difference < -0.02m)
-                            Matrix["<-0.02"].Counter1++;
+                            Matrix["<-0.02"].Counter4++;
                         else if (item.Difference < -0.01m && item.Difference >= -0.02m)
-                            Matrix["-0.02"].Counter2++;
+                            Matrix["-0.02"].Counter4++;
                         else if (item.Difference < 0m && item.Difference >= -0.01m)
-                            Matrix["-0.01"].Counter3++;
+                            Matrix["-0.01"].Counter4++;
                         else if (item.Difference == 0)
                             Matrix["0"].Counter4++;
                         else if (item.Difference > 0m && item.Difference <= 0.01m)
-                            Matrix["0.01"].Counter5++;
+                            Matrix["0.01"].Counter4++;
                         else if (item.Difference > 0.01m && item.Difference <= 0.02m)
-                            Matrix["0.02"].Counter6++;
-                        else if (item.Difference > 0.02m) Matrix[">0.02"].Counter7++;
+                            Matrix["0.02"].Counter4++;
+                        else if (item.Difference > 0.02m) Matrix[">0.02"].Counter4++;
 
                     break;
             }
@@ -110,7 +110,7 @@ namespace confusion.matrix.lib
                     TableDic<string, DataBucket>.Add(Matrix)
                         .OverrideColumnsNames(new Dictionary<string, string>
                         {
-                            {"Key_Id", "_"},
+                            {"Key_Id", "E/R"},
                             {"Counter1", "<-0.02"},
                             {"Counter2", "-0.02"},
                             {"Counter3", "-0.01"},
@@ -130,6 +130,20 @@ namespace confusion.matrix.lib
                                 {"Counter6", TextJustification.Centered},
                                 {"Counter7", TextJustification.Centered}
                             })
+                        .HighlightValue(new HighlightOperator
+                        {
+                            Field = "Counter4",
+                            Type = HighlightType.Decimal,
+                            DecimalValue = Matrix["<-0.02"].Counter4,
+                            Operation = HighlightOperation.Equality
+                        })
+                        .HighlightValue(new HighlightOperator
+                        {
+                            Field = "Counter4",
+                            Type = HighlightType.Decimal,
+                            DecimalValue = Matrix["0"].Counter4,
+                            Operation = HighlightOperation.Equality
+                        })
                         .ToConsole();
                     break;
             }
