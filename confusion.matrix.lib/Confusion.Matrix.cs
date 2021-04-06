@@ -134,49 +134,16 @@ namespace confusion.matrix.lib
                         {
                             Field = "Counter4",
                             Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["<-0.02"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["-0.02"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["-0.01"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["0"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["0.01"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix["0.02"].Counter4,
-                            Operation = HighlightOperation.Equality
-                        })
-                        .HighlightValue(new HighlightOperator
-                        {
-                            Field = "Counter4",
-                            Type = HighlightType.Decimal,
-                            DecimalValue = Matrix[">0.02"].Counter4,
+                            DecimalValue = new List<decimal>
+                            {
+                                Matrix["<-0.02"].Counter4,
+                                Matrix["-0.02"].Counter4,
+                                Matrix["-0.01"].Counter4,
+                                Matrix["0"].Counter4,
+                                Matrix["0.01"].Counter4,
+                                Matrix["0.02"].Counter4,
+                                Matrix[">0.02"].Counter4
+                            },
                             Operation = HighlightOperation.Equality
                         })
                         .ToConsole();

@@ -9,10 +9,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Copyright>Jordi Corbilla</Copyright>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="table.lib" Version="1.6.0" />
+    <PackageReference Include="table.lib" Version="1.6.4" />
   </ItemGroup>
 
   <ItemGroup>
