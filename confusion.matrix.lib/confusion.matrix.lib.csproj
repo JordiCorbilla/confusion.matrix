@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>Simple confusion matrix builder for .net 5</Description>
     <RepositoryUrl>https://github.com/JordiCorbilla/confusion.matrix</RepositoryUrl>
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="table.lib" Version="1.6.4" />
+    <PackageReference Include="table.lib" Version="1.9.0" />
   </ItemGroup>
 
   <ItemGroup>
